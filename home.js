@@ -1,4 +1,4 @@
-window.onload = () => {
+window.onload = function() {
     createHeader();
     createMain();
     createFooter();
@@ -7,111 +7,212 @@ window.onload = () => {
 function createHeader() {
     const header = document.createElement("header");
     const nav = document.createElement("nav");
-    
-    const logoDiv = document.createElement("div");
-    logoDiv.classList.add("logo");
-    logoDiv.style.display = "flex";
-    logoDiv.style.alignItems = "center";
-    logoDiv.innerHTML = `
-        <span style="color:#01939c; font-size:26px; font-weight:bold; letter-spacing: 1px;margin-left: 20px;">BrunoGama</span>
-    `;
-    
-    const hamburgerDiv = document.createElement("div");
-    hamburgerDiv.classList.add("hamburger");
+
+    const logoContainer = document.createElement("div");
+    logoContainer.classList.add("logo");
+    logoContainer.style.display = "flex";
+    logoContainer.style.alignItems = "center";
+
+    const logoText = document.createElement("span");
+    logoText.style.color = "#01939c";
+    logoText.style.fontSize = "26px";
+    logoText.style.fontWeight = "bold";
+    logoText.style.letterSpacing = "1px";
+    logoText.style.marginLeft = "20px";
+    logoText.textContent = "BrunoGama";
+
+    const hamburger = document.createElement("div");
+    hamburger.classList.add("hamburger");
+
     for (let i = 0; i < 3; i++) {
-        const lineDiv = document.createElement("div");
-        lineDiv.classList.add(`line${i + 1}`);
-        hamburgerDiv.appendChild(lineDiv);
+        const line = document.createElement("div");
+        line.classList.add(`line${i + 1}`);
+        hamburger.appendChild(line);
     }
-    
-    const ul = document.createElement("ul");
-    ul.classList.add("nav-links");
-    const navItems = ["Home", "About me", "Skills", "Contact me"];
-    navItems.forEach(item => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = "https://www.web-leb.com/code";
-        a.textContent = item;
-        li.appendChild(a);
-        ul.appendChild(li);
+
+    const navLinks = document.createElement("ul");
+    navLinks.classList.add("nav-links");
+
+    const links = ["Home", "About me", "Skills", "Contact me"];
+    links.forEach(item => {
+        const listItem = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = "https://www.web-leb.com/code";
+        link.textContent = item;
+        listItem.appendChild(link);
+        navLinks.appendChild(listItem);
     });
 
-    nav.appendChild(logoDiv);
-    nav.appendChild(hamburgerDiv);
-    nav.appendChild(ul);
+    logoContainer.appendChild(logoText);
+    nav.appendChild(logoContainer);
+    nav.appendChild(hamburger);
+    nav.appendChild(navLinks);
     header.appendChild(nav);
-    
+
     document.body.appendChild(header);
 }
 
-
 function createMain() {
     const main = document.createElement("main");
-    main.innerHTML = `
-        <div class="header-content">
-            <h1>Bruno Gama Masseiras</h1>
-            <img src="https://avatars.githubusercontent.com/u/106169955?v=4" alt="Foto de perfil" style="margin-left: 560px; width: 200px; height: 200px; display: flex; align-items: center;">
-            <p style="display: flex; justify-content:space-between;">Sou Bruno Gama, sou um progamador Front End, tenho experiência como Monitor de T.I, atuava em labs 
-                de informática, trocava senhas e desbloqueavas no sistema.</p>
-        </div>
 
-        <div class="slider" style="padding-top: 150px;">
-            <section class="skills">
-                <div class="skill-card">
-                    <div class="skill-title">Front End</div>
-                    <div class="skill-description">
-                        <p style="color: #000;">HTML, CSS, JavaScript</p>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-title">Monitor de T.I.</div>
-                    <div class="skill-description">
-                        <p style="color: #000;">Resolução de problemas, Suporte técnico, Gerenciamento de redes</p>
-                    </div>
-                </div>
-            </section>  
-        </div>
+    const headerContent = document.createElement("div");
+    headerContent.classList.add("header-content");
 
-        <div class="container">
-            <form action="#" method="POST">
-                <h2>Entre em Contato</h2>
-                <div class="input-group">
-                    <label for="name">Nome:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="input-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <label for="message">Mensagem:</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
-                </div>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
-    `;
+    const heading = document.createElement("h1");
+    heading.textContent = "Bruno Gama Masseiras";
+
+    const profileImage = document.createElement("img");
+    profileImage.src = "https://avatars.githubusercontent.com/u/106169955?v=4";
+    profileImage.alt = "Profile Picture";
+    profileImage.style.marginLeft = "560px";
+    profileImage.style.width = "200px";
+    profileImage.style.height = "200px";
+    profileImage.style.display = "flex";
+    profileImage.style.alignItems = "center";
+
+    const paragraph = document.createElement("p");
+    paragraph.style.display = "flex";
+    paragraph.style.justifyContent = "space-between";
+    paragraph.textContent = "Sou Bruno Gama, sou um progamador Front End, tenho experiência como Monitor de T.I, atuava em labs de informática, trocava senhas e desbloqueavas no sistema.";
+
+    headerContent.appendChild(heading);
+    headerContent.appendChild(profileImage);
+    headerContent.appendChild(paragraph);
+    main.appendChild(headerContent);
+
+    const slider = document.createElement("div");
+    slider.classList.add("slider");
+    slider.style.paddingTop = "150px";
+
+    const skillsSection = document.createElement("section");
+    skillsSection.classList.add("skills");
+
+    const frontEndSkillCard = createSkillCard("Front End", "HTML, CSS, JavaScript");
+    const itMonitorSkillCard = createSkillCard("Monitor de T.I.", "Resolução de problemas, Suporte técnico, Gerenciamento de redes");
+
+    skillsSection.appendChild(frontEndSkillCard);
+    skillsSection.appendChild(itMonitorSkillCard);
+
+    slider.appendChild(skillsSection);
+    main.appendChild(slider);
+
+    const container = document.createElement("div");
+    container.classList.add("container");
+
+    const form = document.createElement("form");
+    form.action = "#";
+    form.method = "POST";
+
+    const formHeading = document.createElement("h2");
+    formHeading.textContent = "Entre em Contato";
+
+    const nameInput = createInputGroup("Nome:", "name", "text", true);
+    const emailInput = createInputGroup("Email:", "email", "email", true);
+
+    const messageInputGroup = document.createElement("div");
+    messageInputGroup.classList.add("input-group");
+
+    const messageLabel = document.createElement("label");
+    messageLabel.for = "message";
+    messageLabel.textContent = "Mensagem:";
+
+    const messageTextarea = document.createElement("textarea");
+    messageTextarea.id = "message";
+    messageTextarea.name = "message";
+    messageTextarea.rows = "4";
+    messageTextarea.required = true;
+
+    messageInputGroup.appendChild(messageLabel);
+    messageInputGroup.appendChild(messageTextarea);
+
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Enviar";
+
+    form.appendChild(formHeading);
+    form.appendChild(nameInput);
+    form.appendChild(emailInput);
+    form.appendChild(messageInputGroup);
+    form.appendChild(submitButton);
+
+    container.appendChild(form);
+    main.appendChild(container);
+
     document.body.appendChild(main);
+}
+
+function createSkillCard(title, description) {
+    const skillCard = document.createElement("div");
+    skillCard.classList.add("skill-card");
+
+    const skillTitle = document.createElement("div");
+    skillTitle.classList.add("skill-title");
+    skillTitle.textContent = title;
+
+    const skillDescription = document.createElement("div");
+    skillDescription.classList.add("skill-description");
+
+    const descriptionParagraph = document.createElement("p");
+    descriptionParagraph.style.color = "#000";
+    descriptionParagraph.textContent = description;
+
+    skillDescription.appendChild(descriptionParagraph);
+    skillCard.appendChild(skillTitle);
+    skillCard.appendChild(skillDescription);
+
+    return skillCard;
+}
+
+function createInputGroup(labelText, inputId, inputType, isRequired) {
+    const inputGroup = document.createElement("div");
+    inputGroup.classList.add("input-group");
+
+    const label = document.createElement("label");
+    label.for = inputId;
+    label.textContent = labelText;
+
+    const input = document.createElement("input");
+    input.type = inputType;
+    input.id = inputId;
+    input.name = inputId;
+    if (isRequired) {
+        input.required = true;
+    }
+
+    inputGroup.appendChild(label);
+    inputGroup.appendChild(input);
+
+    return inputGroup;
 }
 
 function createFooter() {
     const footer = document.createElement("footer");
     footer.classList.add("footer");
-    footer.innerHTML = `
-        <div class="social-icons">
-            <a href="https://www.instagram.com/seu_usuario_instagram"><img
-                src="https://cdn.jsdelivr.net/npm/simple-icons/icons/instagram.svg" alt="Instagram"
-                style="width: 50px; height: 50px;"></a>
-            <a href="https://www.linkedin.com/in/seu_perfil_linkedin"><img
-                src="https://cdn.jsdelivr.net/npm/simple-icons/icons/linkedin.svg" alt="LinkedIn"
-                style="width: 50px; height: 50px;"></a>
-            <a href="https://github.com/seu_usuario_github"><img
-                src="https://cdn.jsdelivr.net/npm/simple-icons/icons/github.svg" alt="GitHub"
-                style="width: 50px; height: 50px;"></a>
-            <a href="https://api.whatsapp.com/send?phone=seu_numero_whatsapp"><img
-                src="https://cdn.jsdelivr.net/npm/simple-icons/icons/whatsapp.svg" alt="WhatsApp"
-                style="width: 50px; height: 50px;"></a>
-        </div>
-    `;
+
+    const socialIconsContainer = document.createElement("div");
+    socialIconsContainer.classList.add("social-icons");
+
+    const socialPlatforms = [
+        { href: "https://www.instagram.com/seu_usuario_instagram", src: "https://cdn.jsdelivr.net/npm/simple-icons/icons/instagram.svg", alt: "Instagram" },
+        { href: "https://www.linkedin.com/in/seu_perfil_linkedin", src: "https://cdn.jsdelivr.net/npm/simple-icons/icons/linkedin.svg", alt: "LinkedIn" },
+        { href: "https://github.com/seu_usuario_github", src: "https://cdn.jsdelivr.net/npm/simple-icons/icons/github.svg", alt: "GitHub" },
+        { href: "https://api.whatsapp.com/send?phone=seu_numero_whatsapp", src: "https://cdn.jsdelivr.net/npm/simple-icons/icons/whatsapp.svg", alt: "WhatsApp" }
+    ];
+
+    socialPlatforms.forEach(platform => {
+        const iconLink = document.createElement("a");
+        iconLink.href = platform.href;
+
+        const iconImage = document.createElement("img");
+        iconImage.src = platform.src;
+        iconImage.alt = platform.alt;
+        iconImage.style.width = "50px";
+        iconImage.style.height = "50px";
+
+        iconLink.appendChild(iconImage);
+        socialIconsContainer.appendChild(iconLink);
+    });
+
+    footer.appendChild(socialIconsContainer);
     document.body.appendChild(footer);
 }
